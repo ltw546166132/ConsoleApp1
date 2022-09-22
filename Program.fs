@@ -355,6 +355,8 @@ function3( fun x -> x + 11) 5
 
 //map映射List
 let listData = [1..100]
+//List.map   List.mapi
 let map1 = List.map (fun x -> x + 1) listData
+//List.iter  List.iteri
 List.iter (fun x -> printf "%A!" x) listData
 List.iteri (fun index x -> printf "%A->%A!" index x) listData
