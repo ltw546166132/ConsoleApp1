@@ -298,6 +298,7 @@ let result2 = apply2 mul2 5 5
 let result3 = apply2 (fun x y -> x * y * 10) 10 10
 let result4 = apply1(fun x -> x * 10) 10
 
+
 //Function Composition and Pipelining  函数拼接
 let function1 (x: int) : int =
     x + 1
