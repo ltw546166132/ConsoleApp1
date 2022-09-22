@@ -305,7 +305,7 @@ let function1 (x: int) : int =
 let function2 (x: int) : int =
     x + 1
 let pipe1 = function1 >> function2
-let resultPipel = pipe1(1)
+let resultPipel = pipe1 1
 let pipe2 = function2(function1(1))
 
 let pipe3 = 100 |> function1 |>function2
@@ -344,5 +344,16 @@ let optionr1 =
     if div1.IsSome
     then div1.Value
     else 1
-    
-    
+
+//F#高阶函数
+//定义抽象函数体的执行顺序
+let function3 (g: int -> int) (x: int) : int =
+    x |> g
+//参数1为lamda表达式
+function3( fun x -> x + 11) 5
+
+
+//map映射List
+let listData = [1..100]
+let map1 = List.map (fun x -> x + 1) listData
+List.iter (fun x -> printf "%A!" x) listData
