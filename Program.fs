@@ -22,56 +22,66 @@ let user =
 let (a1, b1, c1, d1) = user
 
 //记录
-type Gender = {
-    gender:int
-}
-
-
-type TestUser = {
-    name:string
-    age:int
-    salary:float
-}
-
-type User = {
-    name:string
-    age:int
-    salary:float
-    gender:Gender
-}
-
-
-let user1 = {
-    age = 22
-    name = "AA"
-    salary = 32.32
-}
-
-let user2 = {
-    age = 22
-    name = "AA"
-    salary = 32.32
-    gender = {
-        gender = 1
+type Gender = 
+    {
+        gender:int
     }
-}
+
+
+type TestUser = 
+    {
+        name:string
+        age:int
+        salary:float
+    }
+
+type User = 
+    {
+        name:string
+        age:int
+        salary:float
+        gender:Gender
+    }
+
+
+let user1 = 
+    {
+        age = 22
+        name = "AA"
+        salary = 32.32
+    }
+
+let user2 = 
+    {
+        age = 22
+        name = "AA"
+        salary = 32.32
+        gender = {
+            gender = 1
+        }
+    }
 
 let name = user2.name
 let pergender = user2.gender.gender
 
 //匿名记录
-let user4 = {|
-    name = "123"
-    salary = 32.32
-|}
+let user4 =     
+    {|
+        name = "123"
+        salary = 32.32
+    |}
 
 
 //修改记录的值
-let user3 = {
-    user2 with name = "qees"; age = 45; gender = {gender = 0}
-}
+let user3 = 
+    {
+        user2 with name = "qees"; age = 45; gender = {gender = 0}
+    }
 
-let user5 = {|user4 with name = "haha"|}
+let user5 = 
+    {|
+        user4 with name = "haha"
+    |}
 
 let nameOfUser5 = user5.name
 
@@ -80,24 +90,27 @@ type testEnum =
     |男
     |女
 
-type PlayerRecord = {
-    name:string
-    level:int
-    strenth:int
-    Exp:decimal
-}
+type PlayerRecord = 
+    {
+        name:string
+        level:int
+        strenth:int
+        Exp:decimal
+    }
 
-type MonsterRecord = {
-    name:string
-    level:int
-    strenth:int
-}
+type MonsterRecord = 
+    {
+        name:string
+        level:int
+        strenth:int
+    }
 
-type NPCRecord = {
-    name:string
-    level:int
-    strenth:int
-}
+type NPCRecord = 
+    {
+        name:string
+        level:int
+        strenth:int
+    }
 
 //区别联合
 type Person = 
@@ -106,11 +119,12 @@ type Person =
     | NPCCase of NPCRecord
     | Animal of int64
 
-let npc1 = {
-    name = "qqq"
-    level = 99
-    strenth = 100
-}
+let npc1 = 
+    {
+        name = "qqq"
+        level = 99
+        strenth = 100
+    }
 
 let p1 = Person.NPCCase npc1
 
@@ -295,6 +309,39 @@ let pipe2 = function2(function1(1))
 
 let pipe3 = 100 |> function1 |>function2
 
+//记录的成员函数
+type TestRecord = 
+    {
+        A: int
+        B: int
+    }
+    member this.TestFunction(x: int) : int = 
+        x + this.A + this.B
+    static member TestStaticFun(x: int) : int = 
+        x * 1000
+let fun12(x: int): int = 
+    x * 1
+let fun13(x: int): int = 
+    x * 10
+let r = 10
+if r % 2 = 0
+then
+    fun12(r)
+else
+    fun13(r)
 
-let a1234 = 1
+//Option
+let div x y =
+    if y = 0
+    then None
+    else 
+        let r = x / y
+        Some r
 
+let div1 = div 10 0
+let optionr1 =
+    if div1.IsSome
+    then div1.Value
+    else 1
+    
+    
