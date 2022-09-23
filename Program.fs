@@ -360,3 +360,12 @@ let map1 = List.map (fun x -> x + 1) listData
 //List.iter  List.iteri
 List.iter (fun x -> printf "%A!" x) listData
 List.iteri (fun index x -> printf "%A->%A!" index x) listData
+
+let ran = System.Random()
+let getRandomNumber (min: int)  (max: int) : int =
+    ran.Next(min, max + 1)
+
+//F# filter
+let valueRan = [0..99] |>
+List.map (fun x-> getRandomNumber 50 100) |>
+List.filter(fun x -> x>=60)
