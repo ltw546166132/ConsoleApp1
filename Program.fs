@@ -356,7 +356,7 @@ function3( fun x -> x + 11) 5
 //map映射List
 let listData = [1..100]
 //List.map   List.mapi
-let map1 = List.map (fun x -> x + 1) listData
+let map1 = List.map (fun x -> x + 1), listData
 //List.iter  List.iteri
 List.iter (fun x -> printf "%A!" x) listData
 List.iteri (fun index x -> printf "%A->%A!" index x) listData
@@ -366,6 +366,14 @@ let getRandomNumber (min: int)  (max: int) : int =
     ran.Next(min, max + 1)
 
 //F# filter
-let valueRan = [0..99] |>
-List.map (fun x-> getRandomNumber 50 100) |>
+[0..99] |>
+List.map (fun x -> getRandomNumber 50 100) |>
 List.filter(fun x -> x>=60)
+
+//F# choose  相当于 map与filter的结合
+let valueRan = [0..99]
+List.choose (fun x -> 
+    let num, score = x, getRandomNumber 50 100
+    if score < 60
+    then Some(num, score)
+    else None) valueRan
