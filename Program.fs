@@ -379,10 +379,13 @@ List.choose (fun x ->
     else None) valueRan
 
 //F# group
-[1..10] |>
-List.map(fun num -> num, getRandomNumber 1 10) |>
-List.groupBy(fun (num,sorce) -> sorce) |>
-List.map(fun (sorce, group) -> 
-    let team = List.map(fun (num, sorce) -> num) group
-    sorce, team
-)
+let result5 = 
+    [1..10] |>
+    List.map(fun num -> num, getRandomNumber 1 10) |>
+    List.groupBy(fun (num,sorce) -> sorce) |>
+    List.map(fun (sorce, group) -> 
+        let team = List.map(fun (num, sorce) -> num) group
+        sorce, team
+    )
+
+List.sortBy(fun (score, team) -> score) result5
