@@ -449,3 +449,32 @@ let function5 var1 var2 =
 
 function5 1 2
 function5 2 1
+
+let list6 = [1;2;3;4;5]
+let rec printList l =
+    match l with
+    | head :: tail -> printf "%d\t" head; printList tail
+    | [] -> ()
+printList list6
+
+let listLength list =
+    match list with
+    | [] -> 0
+    | [_] -> 1
+    | [_;_] -> 2
+    | [_;_;_] -> 3
+    | _ -> List.length list
+
+printfn "%d" (listLength [1])
+printfn "%d" (listLength [1; 1])
+printfn "%d" (listLength [1; 1; 1])
+
+type A() = class end
+type B() = inherit A()
+type C() = inherit A()
+
+let m (a: A) =
+    match a with
+    | :? B -> printfn "It's a B"
+    | :? C -> printfn "It's a C"
+    | _ -> ()
