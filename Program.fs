@@ -3,6 +3,8 @@ open System.Collections.Generic
 
 // For more information see https://aka.ms/fsharp-console-apps
 printfn "Hello from F#"
+
+printf $"{System.DateTime.UtcNow: ``yyyy-MM-dd HH-mm-ss``}"
 let a  = true
 
 let d = 
@@ -389,3 +391,60 @@ let result5 =
     )
 
 List.sortBy(fun (score, team) -> score) result5
+
+[1..100] |>
+List.map(fun x -> getRandomNumber 1 10) |>
+List.distinct
+
+let datafor = [1..100] 
+datafor |>
+List.map(fun i -> 
+    if i % 2 = 0
+    then "even"
+    else "odd"
+    )
+
+//for循环
+for i in datafor do
+   printfn "%d\t" i
+
+for i = 0 to 99 do
+    printf "%d\t %s\t"  datafor.[i]  "hello world"
+
+let mutable counter = 0
+while counter < datafor.Length do
+    printf "%d/t" datafor.[counter]
+    counter <- counter + 1
+
+//match
+let matchingFun (x: int) =
+    match x % 3 with
+    | 0 -> -1
+    | 1 -> 0
+    | 2 -> 1
+    | _ -> x
+
+for i in datafor do
+    printf $"%d{matchingFun datafor.[i-1]}\t"
+
+//match with
+let matchWith(x: int) =
+    match x with
+    | 1 | 2 | 3 -> printf "Found 1,2,3\t"
+    | v -> printf $"%d{v}\t"
+
+for i in datafor do
+    matchWith datafor.[i-1]
+
+let printOption(data) : bool =
+    match data with
+    | Some var1 -> true
+    | None -> false
+
+let function5 var1 var2 =
+    match (var1, var2) with
+    | (var1, var2) when var1 > var2 -> printf "%d is greater than %d" var1 var2
+    | (var1, var2) when var1 < var2 -> printf "%d is less than %d" var1 var2
+    | (var1, var2) -> printf "%d equals %d" var1 var2
+
+function5 1 2
