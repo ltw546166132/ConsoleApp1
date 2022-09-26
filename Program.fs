@@ -448,3 +448,4 @@ let function5 var1 var2 =
     | (var1, var2) -> printf "%d equals %d" var1 var2
 
 function5 1 2
+function5 2 1
