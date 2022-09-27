@@ -1,5 +1,7 @@
 ﻿open System
 open System.Collections.Generic
+open System.Net
+open Microsoft.FSharp.Control.WebExtensions
 
 // For more information see https://aka.ms/fsharp-console-apps
 printfn "Hello from F#"
@@ -494,21 +496,47 @@ TestNumber 11
 TestNumber 12
 
 //Partial Active Patterns
-let (|Integer|_|) (str:string) =
+let (|Integer1|_|) (str:string) =
     let mutable intvalue = 0
     if System.Int32.TryParse(str, &intvalue) then Some(intvalue)
     else None
 
-let (|Float|_|) (str:string) =
+let (|Float1|_|) (str:string) =
     let mutable floatvalue = 0.0
     if System.Double.TryParse(str, &floatvalue) then Some(floatvalue)
     else None
 
 let parseNumeric str =
     match str with
-    | Integer i -> printfn "%d : Integer" i
-    | Float f -> printfn "%f : Floating point" f
+    | Integer1 i -> printfn "%d : Integer" i
+    | Float1 f -> printfn "%f : Floating point" f
     | _ -> printfn "%s : Not matched." str
 
 parseNumeric "1.1"
 parseNumeric "2"
+
+//F#并发
+[|1..100|] |> Array.Parallel.map(fun i -> i * i)
+
+
+let urlList = [("Microsoft", "http://www.microsoft.com"); ("MSDN", "http://msdn.microsoft.com"); ("Bing","http://www.bing.com")]
+
+let fetchAsync(name, url: string) =
+    async {
+        try
+            let uri = new System.Uri(url)
+            let webClient  = new WebClient()
+            let! html = webClient.AsyncDownloadString(uri)
+            printfn "Read %d characters for %s" html.Length name
+        with 
+            | ex -> printfn "%s" (ex.Message);
+    }
+
+let allRun() =
+    urlList |>
+    List.toArray |>
+    Array.Parallel.map fetchAsync |> Async.Parallel |> Async.RunSynchronously |> ignore
+
+allRun()
+
+
